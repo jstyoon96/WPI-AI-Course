@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*:Zone.Identifier
+
+# Local environments and secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Experiment outputs
+experiments/*/
+!experiments/README.md
+reports/*/
+!reports/README.md
+examples/*/experiments/*/
+!examples/*/experiments/README.md
+examples/*/reports/*/
+!examples/*/reports/README.md
+!examples/*/reports/*/
+!examples/*/reports/*/README.md
+!examples/*/reports/*/*_summary.md

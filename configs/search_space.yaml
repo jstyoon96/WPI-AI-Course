@@ -1,0 +1,17 @@
+# Search space placeholder for proxy experiments.
+#
+# Keep this file conservative. Do not launch sweeps or full training from this
+# config without explicit human approval.
+
+optimizer:
+  learning_rate:
+    values: [0.001]
+
+trainer:
+  max_epochs:
+    values: [3]
+
+model:
+  family:
+    values: [default]
+

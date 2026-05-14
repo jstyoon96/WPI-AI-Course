@@ -1,0 +1,27 @@
+LOW_TRAIN_LOW_VAL:
+  first_checks:
+    - audit_labels
+    - overfit_tiny_batch
+    - check_loss_scale
+  forbidden_interventions:
+    - change_test_split
+    - change_primary_metric
+
+HIGH_TRAIN_LOW_VAL:
+  first_checks:
+    - check_data_leakage
+    - check_regularization
+    - inspect_group_metrics
+  forbidden_interventions:
+    - change_test_split
+    - change_primary_metric
+
+TRAINING_DIVERGES:
+  first_checks:
+    - check_learning_rate
+    - check_loss_scale
+    - check_gradient_norms
+  forbidden_interventions:
+    - change_test_split
+    - change_primary_metric
+
