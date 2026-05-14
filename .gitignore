@@ -22,8 +22,16 @@ draft/
 ~$*.pptx
 ~$*.ppt
 
+# Local AI/Codex authoring automation
+.agents/
+.codex/
+AGENTS.md
+PLANS.md
+tests/unit/test_codex_hooks.py
+tests/unit/test_skills.py
+
 # Local data and generated artifacts
-data/
+/data/
 datasets/
 outputs/
 artifacts/
