@@ -1,47 +1,70 @@
-# ML Research Harness Template
+# WPI AI Bootcamp Lab Materials
 
-Reusable scaffold for disciplined machine-learning research projects.
+Student-facing notebook labs for a WPI AI bootcamp. The repository is organized
+by week, with two Colab labs per week and shared data-loading utilities for
+notebooks.
 
-The harness is organized around:
+## Labs
 
-```text
-Data -> Audit -> Train -> Evaluate -> Diagnose -> Plan -> Patch -> Smoke Test -> Run Again -> Report
-```
+| Week | Folder | Lab 1 | Lab 2 |
+| --- | --- | --- | --- |
+| 1 | [WPI_week1](WPI_week1) | Biomedical Imaging | Biomedical Signals |
+| 2 | [WPI_week2](WPI_week2) | Topic placeholder | Topic placeholder |
+| 3 | [WPI_week3](WPI_week3) | Topic placeholder | Topic placeholder |
+| 4 | [WPI_week4](WPI_week4) | Topic placeholder | Topic placeholder |
 
-Use this repository as a starting point when a project needs:
+Each week folder contains `lab1/` and `lab2/`, and each lab contains a matching
+notebook such as `WPI_week1_lab1.ipynb`.
 
-- policy docs for data, metrics, failures, experiments, and runbooks
-- safe placeholder CLI entrypoints for audit, train, evaluate, diagnose, plan,
-  sync, and report workflows
-- registries and package boundaries for data adapters, models, losses,
-  trainers, evaluators, diagnostics, planners, runners, and reports
-- Codex hooks, skills, and tests that enforce careful research workflow
+## Running In Colab
 
-## Instantiate A New Project
+1. Open the week folder for the lab you want.
+2. Open `lab1/` or `lab2/`.
+3. Open the matching notebook and use the Colab badge.
+4. Choose a GPU runtime only when the lab asks for it.
+5. Work through the notebook cells and complete every `TODO`.
 
-1. Copy the template.
-2. Update `configs/base.yaml` with the project name and safe smoke defaults.
-3. Fill in `docs/DATA_SPEC.md` and `docs/METRIC_SPEC.md` before comparing
-   experiments.
-4. Add project-specific adapters in your own package or under `examples/`.
-5. Keep full training, Slurm submission, metric definition changes, split
-   changes, and label-generation changes behind explicit human approval.
+Colab is the official student runtime for the first version of the course.
 
-## Safe Starter Commands
+## Data Loading
+
+Large data files are not committed to this repository. Shared loader code lives
+under `src/wpi_ai_bootcamp/data/`, while local raw data folders remain ignored.
+Notebooks should call loader functions such as `load_ecg_signal()` or
+`load_imaging_sample()` when a shared dataset is useful.
+
+## Creating Weekly Labs
+
+Local source drafts go under `draft/` and are ignored by git. Public labs are
+created from templates:
 
 ```bash
-/home/gyoon/miniconda3/envs/torchgpu/bin/python -m pytest tests/unit tests/smoke
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/train.py --config configs/base.yaml --dry-run
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/train.py --config configs/base.yaml --fast-dev-run
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/evaluate.py --config configs/base.yaml --run-id smoke_test --small
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/generate_report.py --latest
+python3 scripts/create_lab_scaffold.py --week 1 --lab 1 --title "Biomedical Imaging"
+python3 scripts/check_labs.py
 ```
 
-## Worked Examples
+See [docs/LAB_PRODUCTION_WORKFLOW.md](docs/LAB_PRODUCTION_WORKFLOW.md),
+[docs/NOTEBOOK_TEMPLATE_STANDARD.md](docs/NOTEBOOK_TEMPLATE_STANDARD.md), and
+[docs/DATA_SOURCE_POLICY.md](docs/DATA_SOURCE_POLICY.md).
 
-Example projects live under `examples/` and are intentionally kept outside the
-generic `harness` core. The BSPM sparse-reconstruction example is in
-`examples/bspm/`.
+## Instructor Materials
 
-See `AGENTS.md` and `docs/` for the template policy, architecture, test plan,
-metric contract, experiment policy, and runbook.
+Slides, completed answers, review notes, and raw drafts are local working
+materials. Keep them in `instructor/` or `draft/`; both folders are ignored by
+git.
+
+## Validation
+
+Run the lightweight checks before publishing lab changes:
+
+```bash
+python3 scripts/check_labs.py
+pytest tests/unit tests/smoke
+```
+
+## Attribution And License
+
+External datasets, images, snippets, and references must be cited before public
+release. MIT Introduction to Deep Learning is a structural reference only; do
+not copy its lab content without license review and attribution. See
+[docs/ATTRIBUTION_AND_LICENSE.md](docs/ATTRIBUTION_AND_LICENSE.md).

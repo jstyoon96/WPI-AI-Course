@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""UserPromptSubmit guardrails for the ML research harness."""
+"""UserPromptSubmit guardrails for the WPI AI Bootcamp course repo."""
 
 from __future__ import annotations
 
@@ -16,10 +16,26 @@ SECRET_PATTERNS = [
 ]
 
 RISK_CONTEXT = [
-    (re.compile(r"\b(full training|full train|run full|--full)\b", re.I), "Full training requires explicit approval and passing smoke checks first."),
-    (re.compile(r"\b(sbatch|slurm|multi-gpu|multi gpu)\b", re.I), "Slurm, multi-GPU, or long-running jobs require explicit approval."),
-    (re.compile(r"\b(test split|final split|dataset split)\b.*\b(change|modify|edit)\b", re.I), "Dataset split changes require explicit approval and a proposal."),
-    (re.compile(r"\b(metric|evaluation code)\b.*\b(change|modify|edit)\b", re.I), "Metric and evaluation-code changes require explicit approval."),
+    (
+        re.compile(r"\b(solution|answer key|completed notebook)\b", re.I),
+        "Keep completed answers in gitignored instructor folders unless the user explicitly asks for a public release artifact.",
+    ),
+    (
+        re.compile(r"\b(slide|ppt|pptx|deck)\b", re.I),
+        "Slides are instructor-only by default and should stay under gitignored instructor folders.",
+    ),
+    (
+        re.compile(r"\b(MITDeepLearning|introtodeeplearning|MIT 6\.S191)\b", re.I),
+        "MIT material is a structural reference; copying content requires attribution and license review.",
+    ),
+    (
+        re.compile(r"\bMATLAB(?:\s+Online)?\b", re.I),
+        "Public student labs should be converted to Python/Colab notebook instructions.",
+    ),
+    (
+        re.compile(r"\b(Turing|HPC|Slurm|sbatch)\b", re.I),
+        "Turing/HPC support is future runtime work; keep Colab as the v1 student default unless told otherwise.",
+    ),
 ]
 
 

@@ -4,6 +4,8 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 *:Zone.Identifier
+.ipynb_checkpoints/
+.DS_Store
 
 # Local environments and secrets
 .venv/
@@ -12,15 +14,25 @@ venv/
 .env.*
 !.env.example
 
-# Experiment outputs
-experiments/*/
-!experiments/README.md
-reports/*/
-!reports/README.md
-examples/*/experiments/*/
-!examples/*/experiments/README.md
-examples/*/reports/*/
-!examples/*/reports/README.md
-!examples/*/reports/*/
-!examples/*/reports/*/README.md
-!examples/*/reports/*/*_summary.md
+# Instructor-only course materials
+instructor/
+draft/
+*.pptx
+*.ppt
+~$*.pptx
+~$*.ppt
+
+# Local data and generated artifacts
+data/
+datasets/
+outputs/
+artifacts/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.h5
+*.zip
+*.tar
+*.tar.gz

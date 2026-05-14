@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse command guardrails for the ML research harness."""
+"""PreToolUse command guardrails for the WPI AI Bootcamp course repo."""
 
 from __future__ import annotations
 
@@ -13,7 +13,14 @@ DENY_PATTERNS = [
     (re.compile(r"\bcat\s+~?/?.*\.ssh/id_[A-Za-z0-9_-]*", re.I), "Refusing to read SSH private keys."),
     (re.compile(r"(^|[;&|]\s*)(printenv|env)(\s|$)"), "Refusing to dump environment variables."),
     (re.compile(r"\bgit\s+push\s+--force\b"), "Refusing force push without explicit approval."),
-    (re.compile(r"(^|[;&|]\s*)sbatch(\s|$)"), "Refusing direct sbatch submission without approved runner policy."),
+    (re.compile(r"\bgit\s+add\b.*\binstructor/"), "Refusing to stage instructor-only materials."),
+    (re.compile(r"\bgit\s+add\b.*\bdraft/"), "Refusing to stage draft source materials."),
+    (re.compile(r"\bgit\s+add\b.*(?<!src/wpi_ai_bootcamp/)data/"), "Refusing to stage root data files."),
+    (
+        re.compile(r"\bWPI_week\d+/lab\d+/[^\s]*?(solution|answer|instructor|key|draft)[^\s]*", re.I),
+        "Refusing public lab path that looks instructor-only.",
+    ),
+    (re.compile(r"\bMATLAB(?:\s+Online)?\b", re.I), "Refusing prohibited runtime wording for public Colab labs."),
 ]
 
 
@@ -54,15 +61,6 @@ def _command_text(event: dict) -> str:
     return "\n".join(candidates)
 
 
-def _is_full_training_command(command: str) -> bool:
-    if not re.search(r"\bscripts/train\.py\b", command):
-        return False
-    safe_flags = ("--dry-run", "--fast-dev-run")
-    if any(flag in command for flag in safe_flags):
-        return False
-    return True
-
-
 def _deny(reason: str) -> None:
     sys.stdout.write(
         json.dumps(
@@ -86,10 +84,6 @@ def main() -> int:
         if pattern.search(command):
             _deny(reason)
             return 0
-
-    if _is_full_training_command(command) or re.search(r"\b(--full|stage\s*[:=]\s*full)\b", command, re.I):
-        _deny("Full training requires explicit human approval and smoke checks first.")
-        return 0
 
     return 0
 

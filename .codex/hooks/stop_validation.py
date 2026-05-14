@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stop hook validation for final task summaries."""
+"""Stop hook validation for final course-material task summaries."""
 
 from __future__ import annotations
 
@@ -47,7 +47,7 @@ def main() -> int:
         _emit(
             {
                 "decision": "block",
-                "reason": "Final response is missing required harness report fields: "
+                "reason": "Final response is missing required course-material report fields: "
                 + ", ".join(missing)
                 + ". Continue and provide the required summary.",
             }

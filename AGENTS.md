@@ -1,71 +1,55 @@
 # AGENTS.md
 
 ## Role
-You are assisting with a general ML Research Harness.
+You are assisting with WPI AI Bootcamp lab material development.
 
-The goal is to build a reusable system for:
-
-Data -> Audit -> Train -> Evaluate -> Diagnose -> Plan -> Patch -> Smoke Test -> Run Again -> Report.
-
-This repository is not tied to one medical, vision, language, tabular, or time-series domain.
+The repository contains public student-facing labs, lightweight validation
+utilities, and gitignored instructor-only course assets. The audience is mixed:
+students are expected to know basic Python, but may be new to machine learning
+and deep learning.
 
 ## Required Reading Before Edits
-Read the relevant files before making code changes:
+Read the relevant files before making course material changes:
 
-- docs/PRD.md
-- docs/TRD.md
-- docs/TDD.md
-- docs/EDD.md
-- docs/DATA_SPEC.md
-- docs/METRIC_SPEC.md
-- docs/FAILURE_TAXONOMY.md
-- docs/EXPERIMENT_POLICY.md
-- docs/RUNBOOK.md
+- `README.md`
+- `docs/COURSE_STRUCTURE.md`
+- `docs/LAB_AUTHORING_GUIDE.md`
+- `docs/LAB_PRODUCTION_WORKFLOW.md`
+- `docs/NOTEBOOK_TEMPLATE_STANDARD.md`
+- `docs/DATA_SOURCE_POLICY.md`
+- `docs/RUNTIME_GUIDE.md`
+- `docs/CONTENT_REVIEW_CHECKLIST.md`
+- `docs/ATTRIBUTION_AND_LICENSE.md`
 
 ## Non-Negotiable Rules
-- Do not modify the final test split unless explicitly instructed.
-- Do not modify metric definitions unless explicitly instructed.
-- Do not change label generation rules unless explicitly instructed.
-- Do not run full training without explicit approval.
-- Do not submit Slurm jobs without explicit approval.
-- Do not print or store secrets, SSH keys, passwords, tokens, or API keys.
-- Prefer minimal patches.
-- Add or update tests for code changes.
+- Do not put answer notebooks, answer keys, or instructor-only notes in public
+  lab folders.
+- Do not commit files under `instructor/`.
+- Do not commit files under `draft/`.
+- Keep public notebooks runnable in Google Colab unless a lab explicitly states
+  otherwise.
+- Keep visible `TODO` markers in student notebooks.
+- Do not copy third-party course text, images, notebooks, or slides without
+  attribution and license review.
+- Do not print, store, or commit secrets, SSH keys, passwords, tokens, or API
+  keys.
+- Prefer small, reviewable changes.
 
 ## Required Workflow
-1. Read the relevant docs.
-2. Produce a concise implementation plan.
-3. Identify files to change.
-4. Make one minimal change.
-5. Run required checks.
-6. Summarize changed files, test results, risks, and next action.
+1. Inspect the relevant lab README, notebook, and docs.
+2. Make one coherent course-material change.
+3. Run the lightweight validation checks.
+4. Summarize changed files, checks run, results, risks, and next action.
 
 ## Required Checks
 Run as applicable:
 
 ```bash
-/home/gyoon/miniconda3/envs/torchgpu/bin/python -m pytest tests/unit
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/train.py --config configs/base.yaml --dry-run
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/train.py --config configs/base.yaml --fast-dev-run
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/evaluate.py --config configs/base.yaml --run-id smoke_test --small
-/home/gyoon/miniconda3/bin/conda run -n torchgpu python scripts/generate_report.py --latest
+python3 scripts/check_labs.py
+pytest tests/unit tests/smoke
 ```
 
-## Forbidden Commands Without Explicit Approval
-- full training commands
-- sbatch submission
-- destructive file deletion
-- environment variable dumps
-- reading SSH private keys
-- git push --force
-
-## Reporting Format
-At the end of each task, report:
-
-1. What changed
-2. Why it changed
-3. Files changed
-4. Tests run
-5. Test results
-6. Risks
-7. Recommended next step
+## Instructor-Only Materials
+Use local `instructor/` folders for slides, answer notebooks, and review notes.
+Use local `draft/` folders for raw weekly source material. Both folders are
+intentionally gitignored.

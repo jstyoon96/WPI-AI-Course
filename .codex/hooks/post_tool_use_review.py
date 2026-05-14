@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PostToolUse review guardrails for command output."""
+"""PostToolUse review guardrails for course-material commands."""
 
 from __future__ import annotations
 
@@ -10,9 +10,9 @@ import sys
 
 SIGNALS = [
     (re.compile(r"(FAILED|ERROR).*(pytest|tests?)|assertionerror|traceback", re.I | re.S), "A test or Python command appears to have failed."),
-    (re.compile(r"cuda out of memory|outofmemoryerror", re.I), "CUDA out-of-memory detected; do not hide this failure."),
-    (re.compile(r"\b(loss|metric)[=: ]+nan\b|\bnan loss\b", re.I), "NaN loss or metric detected."),
-    (re.compile(r"forbidden file|metric_spec\.md|final test split", re.I), "Output mentions protected research files or forbidden-file changes."),
+    (re.compile(r"invalid notebook JSON|missing Colab|missing TODO", re.I), "A lab material validation check appears to have failed."),
+    (re.compile(r"\binstructor/|\b(answer key|completed notebook)\b", re.I), "Output mentions instructor-only material; verify it is not public or staged."),
+    (re.compile(r"secret-like|private key|api[_-]?key|token|password", re.I), "Output mentions possible secret material."),
 ]
 
 

@@ -1,5 +1,4 @@
 # Integration Tests
 
-Use this directory for command-level tests that exercise multiple harness modules
-together, such as dry-run, fast-dev-run, small evaluation, and report generation.
-
+Use this directory for checks that exercise multiple course-material validation
+paths together, such as notebook scanning plus public/private boundary checks.

@@ -1,5 +1,0 @@
-eval:
-  primary_metric: val_score
-  secondary_metrics: []
-  safety_metrics: []
-

@@ -1,7 +1,0 @@
-data:
-  name: default_dataset
-  version: v1
-  split_version: split_v1
-  batch_size: 32
-  num_workers: 4
-

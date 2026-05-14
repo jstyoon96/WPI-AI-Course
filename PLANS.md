@@ -1,19 +1,18 @@
 # PLANS.md
 
-This file tracks high-level implementation plans for the general ML Research Harness.
+This file records implementation plans for the WPI AI Bootcamp lab materials.
 
-## Initial Skeleton
-- Create policy and design documents.
-- Create config-driven experiment scaffolding.
-- Create importable `harness` package directories.
-- Create argparse-based script placeholders.
-- Create minimal unit and smoke tests.
-- Avoid domain-specific assumptions and external dependencies.
+## Production System
+- Use `WPI_week{n}/lab{m}` as the public lab folder convention.
+- Keep Week 1-4, Lab 1-2 scaffolds available by default.
+- Generate lab folders from `templates/lab/` with `scripts/create_lab_scaffold.py`.
+- Keep reusable data loading code in `src/wpi_ai_bootcamp/data/`.
+- Keep raw weekly drafts in gitignored `draft/`.
+- Keep slides, completed answers, and review notes in gitignored `instructor/`.
+- Validate public labs with `python3 scripts/check_labs.py`.
 
 ## Near-Term TODOs
-- Add config loading and schema validation.
-- Add registries for data adapters, models, losses, metrics, and runners.
-- Add deterministic experiment output creation.
-- Add data, split, label, and evaluation audit implementations.
-- Add rule-based failure diagnosis and next-experiment proposal generation.
-
+- Replace Week 2-4 placeholder topics with instructor drafts.
+- Convert Week 1 imaging and signals drafts into Colab notebook content.
+- Review data choices before adding any public sample data.
+- Add release review notes after the first complete lab conversion.

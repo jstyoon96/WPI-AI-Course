@@ -21,24 +21,64 @@ def test_tool_hook_matchers_cover_shell_and_file_edits():
         assert tool_name in post_matcher
 
 
-def test_pre_tool_hook_denies_full_training_and_allows_dry_run():
-    full_training = _run_hook(
+def test_pre_tool_hook_denies_private_or_public_answer_paths():
+    private_stage = _run_hook(
         PRE_TOOL_HOOK,
         {
             "tool_name": "Bash",
-            "tool_input": {"command": "python scripts/train.py --config configs/base.yaml"},
+            "tool_input": {"command": "git add instructor/slides/week1.pptx"},
         },
     )
-    dry_run = _run_hook(
+    public_answer = _run_hook(
         PRE_TOOL_HOOK,
         {
             "tool_name": "Bash",
-            "tool_input": {"command": "python scripts/train.py --config configs/base.yaml --dry-run"},
+            "tool_input": {
+                "command": "git add "
+                + "WPI_week"
+                + "1"
+                + "/lab"
+                + "1/WPI_week1_"
+                + "lab"
+                + "1_answer.ipynb"
+            },
+        },
+    )
+    draft_stage = _run_hook(
+        PRE_TOOL_HOOK,
+        {
+            "tool_name": "Bash",
+            "tool_input": {"command": "git add draft/Week 1_final_v1/Lab.ipynb"},
+        },
+    )
+    root_data_stage = _run_hook(
+        PRE_TOOL_HOOK,
+        {
+            "tool_name": "Bash",
+            "tool_input": {"command": "git add data/example.csv"},
+        },
+    )
+    package_data_stage = _run_hook(
+        PRE_TOOL_HOOK,
+        {
+            "tool_name": "Bash",
+            "tool_input": {"command": "git add src/wpi_ai_bootcamp/data/signals.py"},
+        },
+    )
+    safe_check = _run_hook(
+        PRE_TOOL_HOOK,
+        {
+            "tool_name": "Bash",
+            "tool_input": {"command": "python3 scripts/check_labs.py"},
         },
     )
 
-    assert full_training["hookSpecificOutput"]["permissionDecision"] == "deny"
-    assert dry_run == {}
+    assert private_stage["hookSpecificOutput"]["permissionDecision"] == "deny"
+    assert public_answer["hookSpecificOutput"]["permissionDecision"] == "deny"
+    assert draft_stage["hookSpecificOutput"]["permissionDecision"] == "deny"
+    assert root_data_stage["hookSpecificOutput"]["permissionDecision"] == "deny"
+    assert package_data_stage == {}
+    assert safe_check == {}
 
 
 def test_stop_hook_accepts_english_and_korean_final_reports():
