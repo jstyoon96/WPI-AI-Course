@@ -30,6 +30,17 @@ PLANS.md
 tests/unit/test_codex_hooks.py
 tests/unit/test_skills.py
 
+# Local staff/course-production workspace
+docs/
+templates/
+scripts/
+tests/
+pyproject.toml
+src/
+WPI_week*/lab*/README.md
+WPI_week*/lab*/img/
+assets/
+
 # Local data and generated artifacts
 /data/
 datasets/
