@@ -38,19 +38,18 @@ SOURCES = {
         citation="scikit-image retina sample data.",
         license_note="Review scikit-image sample data terms before public course release.",
     ),
-    "oxford_iiit_pet": DataSource(
-        name="Oxford-IIIT Pet segmentation dataset",
-        loader="torchvision.datasets.OxfordIIITPet",
-        url="https://www.robots.ox.ac.uk/~vgg/data/pets/",
+    "bbbc038_nuclei": DataSource(
+        name="BBBC038 2018 Data Science Bowl nuclei segmentation dataset",
+        loader="wpi_ai_bootcamp.data.load_bbbc038_nuclei_segmentation_subset",
+        url="https://bbbc.broadinstitute.org/BBBC038",
         citation=(
-            "O. M. Parkhi, A. Vedaldi, A. Zisserman, and C. V. Jawahar, "
-            "Cats and Dogs, IEEE Conference on Computer Vision and Pattern "
-            "Recognition, 2012."
+            "Caicedo, J. C., Goodman, A., Karhohs, K. W. et al. Nucleus "
+            "segmentation across imaging experiments: the 2018 Data Science "
+            "Bowl. Nature Methods 16, 1247-1253 (2019)."
         ),
         license_note=(
-            "Dataset page lists Creative Commons Attribution-ShareAlike 4.0 "
-            "International for commercial/research download; image copyrights "
-            "remain with original owners."
+            "BBBC038 page lists the image set copyright as CC0. Students should "
+            "cite BBBC038 and the Nature Methods paper when reusing the data."
         ),
     ),
 }
